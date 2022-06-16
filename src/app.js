@@ -24,7 +24,7 @@ app.post("/sign-up", (request, response) => {
 			username: request.body.username,
 			avatar: request.body.avatar,
 		};
-		response.send("OK");
+		response.status(201).send("OK");
 	} else {
 		response.status(400).send("Todos os campos são obrigatórios!");
 	}
@@ -39,7 +39,7 @@ app.post("/tweets", (request, response) => {
 				tweet: request.body.tweet,
 			},
 		];
-		response.send("OK");
+		response.status(201).send("OK");
 	} else {
 		response.status(400).send("Todos os campos são obrigatórios!");
 	}
