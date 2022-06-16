@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
+const PORT = 5000;
+
 app.use(express.json());
 app.use(cors());
 
@@ -31,11 +33,12 @@ app.post("/sign-up", (request, response) => {
 });
 
 app.post("/tweets", (request, response) => {
-	if (request.body.username !== "" && request.body.tweet !== "") {
+	const getUserName = request.headers.user;
+	if (getUserName !== "" && request.body.tweet !== "") {
 		tweets = [
 			...tweets,
 			{
-				username: user.username,
+				username: getUserName,
 				tweet: request.body.tweet,
 			},
 		];
@@ -79,4 +82,4 @@ app.get("/tweets/:username", (request, response) => {
 	}
 });
 
-app.listen(5000);
+app.listen(PORT);
