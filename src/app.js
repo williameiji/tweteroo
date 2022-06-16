@@ -35,7 +35,7 @@ app.post("/tweets", (request, response) => {
 		tweets = [
 			...tweets,
 			{
-				username: request.body.username,
+				username: user.username,
 				tweet: request.body.tweet,
 			},
 		];
@@ -51,6 +51,26 @@ app.get("/tweets", (request, response) => {
 		response.send(newestTweets);
 	} else {
 		response.send(tweets);
+	}
+});
+
+app.get("/tweets/:username", (request, response) => {
+	let userTweets = request.params.username;
+	if (userTweets === user.username && tweets.length > 0) {
+		let allTweetsFromUser = [];
+		for (let i = 0; i < tweets.length; i++) {
+			allTweetsFromUser = [
+				...allTweetsFromUser,
+				{
+					username: user.username,
+					avatar: user.avatar,
+					tweet: tweets[i].tweet,
+				},
+			];
+		}
+		response.send(allTweetsFromUser);
+	} else {
+		response.send("Usuário não tem tweets!");
 	}
 });
 
