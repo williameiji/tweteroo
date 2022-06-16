@@ -66,16 +66,13 @@ app.get("/tweets/:username", (request, response) => {
 	let userTweets = request.params.username;
 	if (userTweets === user.username && tweets.length > 0) {
 		let allTweetsFromUser = [];
-		for (let i = 0; i < tweets.length; i++) {
-			allTweetsFromUser = [
-				...allTweetsFromUser,
-				{
-					username: user.username,
-					avatar: user.avatar,
-					tweet: tweets[i].tweet,
-				},
-			];
-		}
+		tweets.forEach((itens) =>
+			allTweetsFromUser.push({
+				username: user.username,
+				avatar: user.avatar,
+				tweet: itens.tweet,
+			})
+		);
 		response.send(allTweetsFromUser);
 	} else {
 		response.send("Usuário não tem tweets!");
