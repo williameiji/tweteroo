@@ -10,10 +10,7 @@ let user = {
 	avatar: "",
 };
 
-let tweets = {
-	username: "",
-	tweet: "",
-};
+let tweets = [];
 
 app.post("/sign-up", (request, response) => {
 	user = {
@@ -21,6 +18,26 @@ app.post("/sign-up", (request, response) => {
 		avatar: request.body.avatar,
 	};
 	response.send("OK");
+});
+
+app.post("/tweets", (request, response) => {
+	tweets = [
+		...tweets,
+		{
+			username: request.body.username,
+			tweet: request.body.tweet,
+		},
+	];
+	response.send("OK");
+});
+
+app.get("/tweets", (request, response) => {
+	if (tweets.length > 10) {
+		let newestTweets = tweets.slice(-10);
+		response.send(newestTweets);
+	} else {
+		response.send(tweets);
+	}
 });
 
 app.listen(5000);
