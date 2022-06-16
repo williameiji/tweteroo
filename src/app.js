@@ -34,14 +34,17 @@ app.post("/sign-up", (request, response) => {
 
 app.post("/tweets", (request, response) => {
 	const getUserName = request.headers.user;
+	let getAvatar = user.find((data) => data.username === getUserName);
 	if (getUserName !== "" && request.body.tweet !== "") {
 		tweets = [
 			...tweets,
 			{
 				username: getUserName,
+				avatar: getAvatar.avatar,
 				tweet: request.body.tweet,
 			},
 		];
+		console.log(tweets);
 		response.status(201).send("OK");
 	} else {
 		response.status(400).send("Todos os campos são obrigatórios!");
