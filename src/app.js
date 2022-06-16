@@ -26,19 +26,23 @@ app.post("/sign-up", (request, response) => {
 		};
 		response.send("OK");
 	} else {
-		response.sendStatus(400);
+		response.status(400).send("Todos os campos são obrigatórios!");
 	}
 });
 
 app.post("/tweets", (request, response) => {
-	tweets = [
-		...tweets,
-		{
-			username: request.body.username,
-			tweet: request.body.tweet,
-		},
-	];
-	response.send("OK");
+	if (request.body.username !== "" && request.body.tweet !== "") {
+		tweets = [
+			...tweets,
+			{
+				username: request.body.username,
+				tweet: request.body.tweet,
+			},
+		];
+		response.send("OK");
+	} else {
+		response.status(400).send("Todos os campos são obrigatórios!");
+	}
 });
 
 app.get("/tweets", (request, response) => {
