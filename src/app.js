@@ -12,12 +12,22 @@ let user = {
 
 let tweets = [];
 
+function isUrl(urlAvatar) {
+	var regexp =
+		/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+	return regexp.test(urlAvatar);
+}
+
 app.post("/sign-up", (request, response) => {
-	user = {
-		username: request.body.username,
-		avatar: request.body.avatar,
-	};
-	response.send("OK");
+	if (request.body.username !== "" && isUrl(request.body.avatar)) {
+		user = {
+			username: request.body.username,
+			avatar: request.body.avatar,
+		};
+		response.send("OK");
+	} else {
+		response.sendStatus(400);
+	}
 });
 
 app.post("/tweets", (request, response) => {
