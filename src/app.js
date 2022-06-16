@@ -7,10 +7,7 @@ const PORT = 5000;
 app.use(express.json());
 app.use(cors());
 
-let user = {
-	username: "",
-	avatar: "",
-};
+let user = [];
 
 let tweets = [];
 
@@ -22,10 +19,13 @@ function isUrl(urlAvatar) {
 
 app.post("/sign-up", (request, response) => {
 	if (request.body.username !== "" && isUrl(request.body.avatar)) {
-		user = {
-			username: request.body.username,
-			avatar: request.body.avatar,
-		};
+		user = [
+			...user,
+			{
+				username: request.body.username,
+				avatar: request.body.avatar,
+			},
+		];
 		response.status(201).send("OK");
 	} else {
 		response.status(400).send("Todos os campos são obrigatórios!");
@@ -67,15 +67,20 @@ app.get("/tweets", (request, response) => {
 
 app.get("/tweets/:username", (request, response) => {
 	let userTweets = request.params.username;
-	if (userTweets === user.username && tweets.length > 0) {
-		let allTweetsFromUser = [];
-		tweets.forEach((itens) =>
+	let allTweetsFromUser = [];
+
+	let searchUser = user.find((data) => data.username === userTweets);
+
+	tweets.forEach(function (itens) {
+		if (itens.username === searchUser.username) {
 			allTweetsFromUser.push({
-				username: user.username,
-				avatar: user.avatar,
+				username: searchUser.username,
+				avatar: searchUser.avatar,
 				tweet: itens.tweet,
-			})
-		);
+			});
+		}
+	});
+	if (allTweetsFromUser) {
 		response.send(allTweetsFromUser);
 	} else {
 		response.send("Usuário não tem tweets!");
