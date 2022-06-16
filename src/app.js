@@ -46,11 +46,19 @@ app.post("/tweets", (request, response) => {
 });
 
 app.get("/tweets", (request, response) => {
-	if (tweets.length > 10) {
-		let newestTweets = tweets.slice(-10);
-		response.send(newestTweets);
-	} else {
-		response.send(tweets);
+	let page = request.query.page;
+	let newestTweets;
+	let params = page * -10;
+	if (page == 1) {
+		newestTweets = tweets.slice(params);
+		response.send(newestTweets.reverse());
+	}
+	if (page > 1) {
+		newestTweets = tweets.slice(page * 10 * -1, params + 10);
+		response.send(newestTweets.reverse());
+	}
+	if (page < 1) {
+		response.status(400).send("Informe uma página válida!");
 	}
 });
 
