@@ -44,7 +44,6 @@ app.post("/tweets", (request, response) => {
 				tweet: request.body.tweet,
 			},
 		];
-		console.log(tweets);
 		response.status(201).send("OK");
 	} else {
 		response.status(400).send("Todos os campos são obrigatórios!");
