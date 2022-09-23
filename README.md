@@ -1,11 +1,73 @@
-# Tweetero
+# <p align = "center"> Tweetero </p>
 
-## About
+## :clipboard: Descrição
 
 backend project for a 'copy' of twitter.
 
-## Built With
+---
 
-<img align="left" alt="nodejs" width="50px" src="https://user-images.githubusercontent.com/86417618/176681309-68f060af-d966-44b1-9fa6-486ed2248bad.svg" />
-<img align="left" alt="expressjs" width="50px" src="https://user-images.githubusercontent.com/86417618/176681476-9f13d771-9818-463b-8797-8fc66ddfe9c8.svg" />
-<img align="left" alt="nodemon" width="50px" src="https://user-images.githubusercontent.com/86417618/176682681-ab9eea39-7652-451a-8808-e05715c3fdc8.svg" />
+## :computer: Technologies and Concepts
+
+
+- Node.js
+- JavaScript
+- Nodemon
+
+---
+
+## :rocket: Routes
+
+```yml
+POST /sign-up
+    - Route to register a new user
+    - headers: {}
+    - body: {
+        "username": "Lorem Ipsum",
+        "avatar": "https://optimistic-rabbit.org",
+    }
+```
+
+```yml
+POST /tweets
+    - Route to add a new tweet
+    - headers: {}
+    - body: {
+        "username": "Lorem Ipsum",
+        "avatar": "https://optimistic-rabbit.org",
+        "tweet": "Consectetur velit eligendi animi nostrum veritatis."
+    }
+```
+
+```yml
+GET /tweets
+    - Route to list all tweets
+    - headers: {}
+    - body: {}
+```
+
+```yml
+GET /tweets/:username
+- Route to list all tweets from a user
+```
+
+## 🏁 Running the application
+
+This project was started with the [Express](https://www.npmjs.com/package/express), so make sure you have the latest stable version of [Node.js](https://nodejs.org/en/download/) and [npm](https://www.npmjs.com/) running locally.
+
+First, clone this repository on your machine:
+
+```
+git clone https://github.com/williameiji/tweteroo
+```
+
+Then, inside the folder, run the following command to install the dependencies.
+
+```
+npm install
+```
+
+Finished the process, just start the server
+
+```
+npm start
+```
